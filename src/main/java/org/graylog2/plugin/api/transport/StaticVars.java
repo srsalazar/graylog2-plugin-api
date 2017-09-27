@@ -21,6 +21,7 @@ public class StaticVars {
   };
 
   // Fields
+  public static final String CK_CONFIG_INTERVAL_UNIT = "configIntervalUnit";
   public static final String CK_CONFIG_URL = "configURL";
   public static final String CK_CONFIG_LABEL = "configLabel";
   public static final String CK_CONFIG_METHOD = "configMethod";
@@ -29,7 +30,6 @@ public class StaticVars {
   public static final String CK_CONFIG_TIMEOUT = "configTimeout";
   public static final String CK_CONFIG_TIMEOUT_UNIT = "configTimeoutUnit";
   public static final String CK_CONFIG_INTERVAL = "configInterval";
-  public static final String CK_CONFIG_INTERVAL_UNIT = "configIntervalUnit";
   public static final String CK_CONFIG_HEADERS_TO_RECORD = "configHeadersToRecord";
   public static final String CK_CONFIG_LOG_RESPONSE_BODY = "configLogResponseBody";
   public static final String CK_CONFIG_HTTP_PROXY = "configHttpProxy";

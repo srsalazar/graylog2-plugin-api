@@ -19,7 +19,7 @@ public class UIConfig{
             "",
             ""));
     cr.addField(new TextField(CK_CONFIG_LABEL,
-            "Label",
+            "API Input Label",
             "",
             "Label to identify this API monitor"));
 
@@ -41,12 +41,12 @@ public class UIConfig{
               ConfigurationField.Optional.OPTIONAL));
 
     cr.addField(new TextField(CK_CONFIG_HEADERS_TO_SEND,
-            "Additional HTTP headers",
+            "Additional HTTP Headers",
             "",
             "Comma separated list of additional HTTP headers to send. For example: Accept: application/json, X-Requester: Graylog2",
             ConfigurationField.Optional.OPTIONAL));
 
-      cr.addField(new TextField(CK_CONFIG_REQUEST_PARAMS,
+    cr.addField(new TextField(CK_CONFIG_REQUEST_PARAMS,
               "Request API Parameters",
               "",
               "Comma separated list of parameters to send. i.e: count=1, pages=2",
@@ -61,7 +61,7 @@ public class UIConfig{
               TextField.Attribute.TEXTAREA));
 
     cr.addField(new NumberField(CK_CONFIG_INTERVAL,
-            "Interval",
+            "Request Interval",
             1,
             "Time between between requests",
             ConfigurationField.Optional.NOT_OPTIONAL));
@@ -73,26 +73,25 @@ public class UIConfig{
 
     cr.addField(new DropdownField(
             CK_CONFIG_INTERVAL_UNIT,
-            "Interval time unit",
+            "Request Interval Time Unit",
             TimeUnit.MINUTES.toString(),
             timeUnits,
             ConfigurationField.Optional.NOT_OPTIONAL
     ));
 
     cr.addField(new NumberField(CK_CONFIG_TIMEOUT,
-            "Timeout",
-            20,
+            "Request Timeout",
+            1,
             "Timeout for requests",
             ConfigurationField.Optional.NOT_OPTIONAL));
 
     cr.addField(new DropdownField(
             CK_CONFIG_TIMEOUT_UNIT,
-            "Timeout time unit",
-            TimeUnit.SECONDS.toString(),
+            "Request Timeout Time Unit",
+            TimeUnit.MINUTES.toString(),
             timeUnits,
             ConfigurationField.Optional.NOT_OPTIONAL
     ));
-
 
     cr.addField(new TextField(CK_CONFIG_HTTP_PROXY,
             "HTTP Proxy URI",
@@ -102,13 +101,13 @@ public class UIConfig{
 
 
     cr.addField(new TextField(CK_CONFIG_HEADERS_TO_RECORD,
-            "Response headers to log",
+            "Response Headers to Log",
             "",
             "Comma separated response headers to log. For example: Accept,Server,Expires",
             ConfigurationField.Optional.OPTIONAL));
 
     cr.addField(new BooleanField(CK_CONFIG_LOG_RESPONSE_BODY,
-            "Log full response body",
+            "Log Full Response Body",
             false,
             "Select if the complete response body needs to be logged as part of message"));
     return cr;

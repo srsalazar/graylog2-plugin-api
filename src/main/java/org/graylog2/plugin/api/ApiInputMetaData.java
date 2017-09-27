@@ -19,7 +19,7 @@ public class ApiInputMetaData implements PluginMetaData {
 
     @Override
     public String getName() {
-        return "ApiInput";
+        return "Api Input";
     }
 
     @Override
