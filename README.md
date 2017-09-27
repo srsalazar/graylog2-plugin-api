@@ -17,6 +17,10 @@ This plugin provides support for monitoring following parameters
 * Timeouts and connection failures
 * Custom Response Headers
 
+Support APIs
+---------------
+* [Bitium API](https://developer.bitium.com/authentication/)
+
 Getting started
 ---------------
 For Graylog v2.0 and above download this [jar](https://github.com/srsalazar/graylog2-plugin-api/releases/download/1.0.0/graylog2-plugin-api-1.0.0.jar)
