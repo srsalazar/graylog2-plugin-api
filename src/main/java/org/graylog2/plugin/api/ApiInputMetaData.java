@@ -1,4 +1,4 @@
-package org.graylog2.plugin.httpmonitor;
+package org.graylog2.plugin.api;
 
 import org.graylog2.plugin.PluginMetaData;
 import org.graylog2.plugin.ServerStatus;
@@ -11,20 +11,20 @@ import java.util.Set;
 /**
  * Implement the PluginMetaData interface here.
  */
-public class HttpMonitorInputMetaData implements PluginMetaData {
+public class ApiInputMetaData implements PluginMetaData {
     @Override
     public String getUniqueId() {
-        return "org.graylog2.plugin.httpmonitor.HttpMonitorInputPlugin";
+        return "org.graylog2.plugin.api.ApiInputPlugin";
     }
 
     @Override
     public String getName() {
-        return "HttpMonitorInput";
+        return "ApiInput";
     }
 
     @Override
     public String getAuthor() {
-        return "Sivasamy Kaliappan";
+        return "Romulo Salazar";
     }
 
     @Override
@@ -34,12 +34,12 @@ public class HttpMonitorInputMetaData implements PluginMetaData {
 
     @Override
     public Version getVersion() {
-        return new Version(1, 0, 5);
+        return new Version(1, 0, 0);
     }
 
     @Override
     public String getDescription() {
-        return "HTTP Monitor Plugin";
+        return "Open Table API Input Plugin";
     }
 
     @Override

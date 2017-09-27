@@ -1,6 +1,8 @@
-# Graylog HTTP Monitor Input Plugin
+# Graylog API Plugin
 
 [![Build Status](https://travis-ci.org/sivasamyk/graylog2-plugin-input-httpmonitor.svg?branch=master)](https://travis-ci.org/sivasamyk/graylog2-plugin-input-httpmonitor)
+
+Note: This was developed from the [Graylog HTTP Monitor Plugin](https://github.com/sivasamyk/graylog2-plugin-input-httpmonitor)
 
 An input monitor plugin for monitoring HTTP URLs (websites and REST APIs). 
 Works by periodically polling the URLs and recording the responses as messages.
@@ -19,10 +21,6 @@ Getting started
 ---------------
 For Graylog v2.0 and above download this [jar](https://github.com/sivasamyk/graylog2-plugin-input-httpmonitor/releases/download/v1.0.5/graylog2-plugin-input-httpmonitor-1.0.5.jar)
 (Please note this version will break (due to changes in graylog field naming restrictions) HTTP monitor dashboard created in older versions)
-
-For Graylog v1.2 and above download this [jar](https://github.com/sivasamyk/graylog2-plugin-input-httpmonitor/releases/download/v1.0.2/graylog2-plugin-input-httpmonitor-1.0.2.jar)
-
-For Graylog v1.1 and below download this [jar](https://github.com/sivasamyk/graylog2-plugin-input-httpmonitor/releases/download/v1.0.0/graylog2-plugin-input-httpmonitor-1.0.0.jar)
 
 * Shutdown the graylog server.
 * Place the plugin jar in the Graylog plugins directory.

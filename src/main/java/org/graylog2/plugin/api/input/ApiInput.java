@@ -1,4 +1,4 @@
-package org.graylog2.plugin.httpmonitor;
+package org.graylog2.plugin.api.input;
 
 import com.codahale.metrics.MetricRegistry;
 import com.google.inject.assistedinject.Assisted;
@@ -13,26 +13,27 @@ import org.graylog2.inputs.codecs.GelfCodec;
 
 import javax.inject.Inject;
 
+import org.graylog2.plugin.api.transport.ApiTransport;
 /**
  * This is the plugin. Your class should implement one of the existing plugin
  * interfaces. (i.e. AlarmCallback, MessageInput, MessageOutput)
  */
-public class HttpMonitorInput extends MessageInput {
+public class ApiInput extends MessageInput {
 
-    private static final String NAME = "HTTP Monitor";
+    private static final String NAME = "API Input";
 
     @AssistedInject
-    public HttpMonitorInput(MetricRegistry metricRegistry, @Assisted Configuration configuration,
-                            HttpMonitorTransport.Factory factory, LocalMetricRegistry localRegistry,
+    public ApiInput(MetricRegistry metricRegistry, @Assisted Configuration configuration,
+                            ApiTransport.Factory factory, LocalMetricRegistry localRegistry,
                             GelfCodec.Factory codecFactory,
                             Config config, Descriptor descriptor, ServerStatus serverStatus) {
         super(metricRegistry, configuration, factory.create(configuration),
                 localRegistry, codecFactory.create(configuration), config, descriptor, serverStatus);
     }
 
-    public interface Factory extends MessageInput.Factory<HttpMonitorInput> {
+    public interface Factory extends MessageInput.Factory<ApiInput> {
         @Override
-        HttpMonitorInput create(Configuration configuration);
+        ApiInput create(Configuration configuration);
 
         @Override
         Config getConfig();
@@ -50,7 +51,7 @@ public class HttpMonitorInput extends MessageInput {
 
     public static class Config extends MessageInput.Config {
         @Inject
-        public Config(HttpMonitorTransport.Factory transport, GelfCodec.Factory codec) {
+        public Config(ApiTransport.Factory transport, GelfCodec.Factory codec) {
             super(transport.getConfig(), codec.getConfig());
         }
     }
