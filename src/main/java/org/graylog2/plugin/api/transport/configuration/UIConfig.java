@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 // Graylog Plugin API
-// Graylog Plugin API
 import org.graylog2.plugin.configuration.ConfigurationRequest;
 import org.graylog2.plugin.configuration.fields.*;
 

@@ -4,11 +4,6 @@ import com.ning.http.client.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.joda.time.*;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-// Exceptions
-import org.graylog2.plugin.inputs.MisfireException;
 
 // API Plugin
 import org.graylog2.plugin.api.transport.services.Service;
@@ -16,9 +11,6 @@ import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
-
-import static org.graylog2.plugin.api.transport.StaticVars.*;
-
 
 public class BitiumApi extends Service {
   private static final Logger LOGGER = LoggerFactory.getLogger(BitiumApi.class.getName());

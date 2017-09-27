@@ -1,27 +1,14 @@
 package org.graylog2.plugin.api.transport.monitor;
 
 import java.net.MalformedURLException;
-import java.util.concurrent.*;
 import com.ning.http.client.*;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Map;
 
 import org.graylog2.plugin.api.transport.parsers.bitium.BitiumParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.google.common.collect.Maps;
-import java.io.ByteArrayOutputStream;
-import java.net.URL;
-
-
-//Exceptions
-import java.io.IOException;
-import java.net.ConnectException;
-import org.graylog2.plugin.inputs.MisfireException;
 
 //Graylog Plugins API
 import org.graylog2.plugin.inputs.MessageInput;
-import org.graylog2.plugin.journal.RawMessage;
 
 // API Plugin
 import org.graylog2.plugin.api.transport.services.bitium.BitiumApi;

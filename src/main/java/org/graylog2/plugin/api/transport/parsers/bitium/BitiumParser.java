@@ -3,15 +3,11 @@ package org.graylog2.plugin.api.transport.parsers.bitium;
 
 import com.ning.http.client.AsyncHttpClient;
 import com.google.common.collect.Maps;
-
-import java.io.IOException;
 import java.util.Map;
-
-import org.graylog2.plugin.Message;
-import org.graylog2.plugin.inputs.MessageInput;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import com.ning.http.client.Response;
+
+import org.graylog2.plugin.inputs.MessageInput;
 
 // API Plugin
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;

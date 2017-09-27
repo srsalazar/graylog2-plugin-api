@@ -4,25 +4,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.collect.Maps;
 import com.ning.http.client.AsyncHttpClient;
 import com.ning.http.client.Response;
-import org.graylog2.plugin.Message;
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
-import org.graylog2.plugin.api.transport.services.bitium.BitiumApi;
 import org.graylog2.plugin.inputs.MessageInput;
 import org.graylog2.plugin.journal.RawMessage;
 import org.json.JSONArray;
-import org.msgpack.util.json.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.ConnectException;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
-import org.json.JSONObject;
 
 public abstract class Parser {
   private static final Logger LOGGER = LoggerFactory.getLogger(Parser.class.getName());

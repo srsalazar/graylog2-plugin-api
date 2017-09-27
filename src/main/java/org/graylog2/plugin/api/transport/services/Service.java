@@ -16,8 +16,6 @@ import java.security.cert.CertificateException;
 import java.security.GeneralSecurityException;
 import java.util.concurrent.TimeUnit;
 
-import org.graylog2.plugin.inputs.MisfireException;
-
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 import static org.graylog2.plugin.api.transport.StaticVars.*;
 

@@ -1,11 +1,12 @@
 package org.graylog2.plugin.api;
 
-import org.graylog2.plugin.PluginConfigBean;
-import org.graylog2.plugin.PluginModule;
 
-import java.util.Collections;
 import java.util.Set;
 
+// Graylog Plugin API
+import org.graylog2.plugin.PluginModule;
+
+// API Plugin
 import org.graylog2.plugin.api.input.ApiInput;
 import org.graylog2.plugin.api.transport.ApiTransport;
 
