@@ -8,6 +8,8 @@ import java.util.concurrent.*;
 import org.graylog2.plugin.configuration.ConfigurationRequest;
 import org.graylog2.plugin.configuration.fields.*;
 
+import javax.xml.soap.Text;
+
 import static org.graylog2.plugin.api.transport.StaticVars.*;
 
 public class UIConfig{
@@ -38,7 +40,7 @@ public class UIConfig{
               "Authorization API Headers",
               "",
               "Comma separated authorization headers to send. i.e: Authorization: token {token}, X-Device-Id: {unique_id} ",
-              ConfigurationField.Optional.OPTIONAL));
+            TextField.Attribute.IS_PASSWORD));
 
     cr.addField(new TextField(CK_CONFIG_HEADERS_TO_SEND,
             "Additional HTTP Headers",
