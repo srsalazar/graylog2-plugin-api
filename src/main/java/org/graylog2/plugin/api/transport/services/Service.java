@@ -34,6 +34,9 @@ public abstract class Service {
         AsyncHttpClientConfig.Builder configBuilder = new AsyncHttpClientConfig.Builder();
         configBuilder.setEnabledProtocols(SSL_VERSIONS);
         configBuilder.setSSLContext(getSSLContext());
+        configBuilder.setMaxConnections(500)
+                .setMaxConnectionsPerHost(200)
+                .setPooledConnectionIdleTimeout(100);
         this.httpClient = new AsyncHttpClient(configBuilder.build());
     }
 
