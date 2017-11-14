@@ -25,16 +25,9 @@ public abstract class Service {
     protected AsyncHttpClient.BoundRequestBuilder requestBuilder;
     protected AsyncHttpClient httpClient;
 
-    protected Service (ApiConfig config) throws MalformedURLException{
-      generateHTTPClient();
-      generateRequestBuilder(config);
-    }
-
-    private void generateHTTPClient(){
-        AsyncHttpClientConfig.Builder configBuilder = new AsyncHttpClientConfig.Builder();
-        configBuilder.setEnabledProtocols(SSL_VERSIONS);
-        configBuilder.setSSLContext(getSSLContext());
-        this.httpClient = new AsyncHttpClient(configBuilder.build());
+    protected Service (ApiConfig config, AsyncHttpClient httpClient) throws MalformedURLException{
+        this.httpClient = httpClient;
+        generateRequestBuilder(config);
     }
 
     private void generateRequestBuilder(ApiConfig config) throws MalformedURLException{
@@ -88,36 +81,6 @@ public abstract class Service {
 
     private void validURL(String urlString) throws MalformedURLException{
         URL url = new URL(urlString);
-    }
-
-    //Accept all certficates
-    private SSLContext getSSLContext() {
-        try {
-            SSLContext context = SSLContext.getInstance("SSL");
-            context.init(null, new TrustManager[]{
-                    new X509TrustManager() {
-
-                        @Override
-                        public void checkClientTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-
-                        }
-
-                        @Override
-                        public void checkServerTrusted(X509Certificate[] x509Certificates, String s) throws CertificateException {
-
-                        }
-
-                        @Override
-                        public X509Certificate[] getAcceptedIssuers() {
-                            return null;
-                        }
-                    }
-            }, null);
-            return context;
-        } catch (GeneralSecurityException e) {
-            LOGGER.debug("Exception while creating certs ",e);
-        }
-        return null;
     }
 
     public abstract AsyncHttpClient.BoundRequestBuilder customizeBuildRequest(ApiConfig config) ;

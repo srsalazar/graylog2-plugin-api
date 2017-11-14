@@ -15,8 +15,8 @@ import java.util.concurrent.TimeUnit;
 public class BitiumApi extends Service {
   private static final Logger LOGGER = LoggerFactory.getLogger(BitiumApi.class.getName());
 
-  public BitiumApi(ApiConfig config) throws MalformedURLException {
-    super(config);
+  public BitiumApi(ApiConfig config, AsyncHttpClient httpClient) throws MalformedURLException {
+    super(config, httpClient);
   }
 
   // Customize request builder for Bitium
@@ -27,7 +27,7 @@ public class BitiumApi extends Service {
       long executionIntervalMs = TimeUnit.MILLISECONDS.convert(config.getExecutionInterval(), config.getIntervalUnit());
       dt = dt.minus(executionIntervalMs);
       this.requestBuilder.addQueryParam("filters[time_from]",
-              dt.withZoneRetainFields(DateTimeZone.forID("America/Los_Angeles")).toString());
+              dt.withZone(DateTimeZone.forID("America/Los_Angeles")).toString());
       return this.requestBuilder;
   }
 }
