@@ -35,28 +35,28 @@ public class Monitor {
       private MessageInput messageInput;
       private AsyncHttpClient httpClient;
 
-      private Service service;
-
 
       public MonitorTask(ApiConfig config, MessageInput messageInput){
           this.config = config;
           this.messageInput = messageInput;
-          generateAsyncHttpClient();
+          generateAsyncHttpClientConfigBuilder();
       }
 
-      private void generateAsyncHttpClient(){
+      private void generateAsyncHttpClientConfigBuilder(){
           AsyncHttpClientConfig.Builder configBuilder = new AsyncHttpClientConfig.Builder();
-          configBuilder.setEnabledProtocols(SSL_VERSIONS);
-          configBuilder.setSSLContext(getSSLContext());
-          configBuilder.setMaxConnections(500)
-                  .setMaxConnectionsPerHost(200);
+          configBuilder.setEnabledProtocols(SSL_VERSIONS)
+                  .setSSLContext(getSSLContext())
+                  .setMaxConnections(500)
+                  .setMaxConnectionsPerHost(200)
+                  .setPooledConnectionIdleTimeout(100)
+                  .setConnectionTTL(500);
           this.httpClient = new AsyncHttpClient(configBuilder.build());
       }
 
       //Accept all certficates
       private SSLContext getSSLContext() {
           try {
-              SSLContext context = SSLContext.getInstance("TLS");
+              SSLContext context = SSLContext.getInstance("SSL");
               context.init(null, new TrustManager[]{
                       new X509TrustManager() {
 

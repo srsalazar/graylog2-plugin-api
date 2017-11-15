@@ -26,7 +26,7 @@ public abstract class Service {
     protected AsyncHttpClient httpClient;
 
     protected Service (ApiConfig config, AsyncHttpClient httpClient) throws MalformedURLException{
-        this.httpClient = httpClient;
+            this.httpClient = httpClient;
         generateRequestBuilder(config);
     }
 
