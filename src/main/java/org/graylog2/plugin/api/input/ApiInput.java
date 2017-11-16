@@ -7,8 +7,6 @@ import org.graylog2.plugin.LocalMetricRegistry;
 import org.graylog2.plugin.ServerStatus;
 import org.graylog2.plugin.configuration.Configuration;
 import org.graylog2.plugin.inputs.MessageInput;
-import org.graylog2.plugin.inputs.codecs.Codec;
-import org.graylog2.plugin.inputs.transports.Transport;
 import org.graylog2.inputs.codecs.GelfCodec;
 
 import javax.inject.Inject;

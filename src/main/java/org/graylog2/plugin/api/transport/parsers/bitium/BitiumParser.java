@@ -1,9 +1,10 @@
 package org.graylog2.plugin.api.transport.parsers.bitium;
 
-
-import com.ning.http.client.AsyncHttpClient;
+import com.mashape.unirest.request.HttpRequest;
 import com.google.common.collect.Maps;
 import java.util.Map;
+
+import org.graylog2.plugin.api.transport.StaticVars;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -18,15 +19,15 @@ import org.slf4j.LoggerFactory;
 
 public class BitiumParser extends Parser{
     private static final Logger LOGGER = LoggerFactory.getLogger(BitiumParser.class.getName());
-    public BitiumParser(AsyncHttpClient.BoundRequestBuilder requestBuilder, ApiConfig config){
-        super(requestBuilder, config);
+    public BitiumParser(HttpRequest request, ApiConfig config){
+        super(request, config, StaticVars.BITIUM);
     }
 
     @Override
     public void parse(MessageInput messageInput) {
 
 
-        JSONArray jsonArray = getResponseBody();
+        JSONArray jsonArray = getResponseBody().getArray();
 
         //Not logging empty responses
         if (jsonArray.length() > 0) {

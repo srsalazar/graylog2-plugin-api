@@ -1,6 +1,6 @@
 package org.graylog2.plugin.api.transport.services.bitium;
 
-import com.ning.http.client.*;
+import com.mashape.unirest.request.HttpRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.joda.time.*;
@@ -15,19 +15,21 @@ import java.util.concurrent.TimeUnit;
 public class BitiumApi extends Service {
   private static final Logger LOGGER = LoggerFactory.getLogger(BitiumApi.class.getName());
 
-  public BitiumApi(ApiConfig config, AsyncHttpClient httpClient) throws MalformedURLException {
-    super(config, httpClient);
+  public BitiumApi(ApiConfig config) throws MalformedURLException {
+    super(config);
   }
 
-  // Customize request builder for Bitium
-  public AsyncHttpClient.BoundRequestBuilder customizeBuildRequest(ApiConfig config) {
+    @Override
+    public HttpRequest customizeHttpRequest(ApiConfig config) {
 
-      //Adding time filter
-      DateTime dt = new DateTime();
-      long executionIntervalMs = TimeUnit.MILLISECONDS.convert(config.getExecutionInterval(), config.getIntervalUnit());
-      dt = dt.minus(executionIntervalMs);
-      this.requestBuilder.addQueryParam("filters[time_from]",
-              dt.withZone(DateTimeZone.forID("America/Los_Angeles")).toString());
-      return this.requestBuilder;
-  }
+        //Adding time filter
+        DateTime dt = new DateTime();
+        long executionIntervalMs = TimeUnit.MILLISECONDS.convert(config.getExecutionInterval(), config.getIntervalUnit());
+        LOGGER.debug("Setting execution interval:" + executionIntervalMs);
+        dt = dt.minus(executionIntervalMs);
+        this.request.queryString("filters[time_from]",
+                dt.withZone(DateTimeZone.forID("America/Los_Angeles")).toString());
+        return this.request;
+    }
+
 }
