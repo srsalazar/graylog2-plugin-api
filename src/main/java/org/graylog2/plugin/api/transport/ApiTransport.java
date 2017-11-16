@@ -4,6 +4,8 @@ import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.MetricSet;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
+
+import java.io.IOException;
 import java.util.concurrent.*;
 
 
@@ -19,9 +21,11 @@ import org.graylog2.plugin.inputs.annotations.ConfigClass;
 import org.graylog2.plugin.inputs.annotations.FactoryClass;
 import org.graylog2.plugin.inputs.codecs.CodecAggregator;
 import org.graylog2.plugin.inputs.transports.Transport;
+import com.mashape.unirest.http.Unirest;
 
 //Plugin
 import org.graylog2.plugin.api.transport.monitor.Monitor.*;
+import org.slf4j.LoggerFactory;
 
 /**
  * Created on 17/6/15.
@@ -34,6 +38,7 @@ public class ApiTransport implements Transport {
     private ScheduledFuture future;
     private MessageInput messageInput;
 
+    private static final org.slf4j.Logger LOGGER = LoggerFactory.getLogger(ApiTransport.class.getName());
     @AssistedInject
     public ApiTransport(@Assisted Configuration configuration,
                                 MetricRegistry metricRegistry,
@@ -60,7 +65,12 @@ public class ApiTransport implements Transport {
 
     @Override
     public void stop() {
-
+        try {
+            Unirest.shutdown();
+        } catch (IOException e){
+            LOGGER.info("Unable to shutdown Unirest");
+            LOGGER.info(e.toString());
+        }
         if (future != null) {
             future.cancel(true);
         }

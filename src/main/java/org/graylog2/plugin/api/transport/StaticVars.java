@@ -7,6 +7,9 @@ public class StaticVars {
   public static final String METHOD_PUT = "PUT";
   public static final String METHOD_GET = "GET";
 
+  public static final String BITIUM = "bitium";
+  public static final String DUO = "duo";
+
   // Supported Schemas
   public static String[] HTTP_SCHEMAS = {
           "http",
