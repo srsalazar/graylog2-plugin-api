@@ -8,6 +8,7 @@ import com.mashape.unirest.http.HttpResponse;
     import com.mashape.unirest.http.JsonNode;
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 import org.graylog2.plugin.inputs.MessageInput;
+import org.graylog2.plugin.inputs.MisfireException;
 import org.graylog2.plugin.journal.RawMessage;
 import org.json.JSONArray;
 import org.slf4j.Logger;
@@ -23,13 +24,13 @@ public abstract class Parser {
   protected HttpResponse<JsonNode> response;
   protected Map<String, Object> baseEventData;
 
-  public Parser(HttpRequest request, ApiConfig config, String host){
+  public Parser(HttpRequest request, ApiConfig config, String host) throws UnirestException{
       this.baseEventData = Maps.newHashMap();
       makeAPIRequest(request,config);
       setBaseEventData(config, host);
   }
 
-  private void makeAPIRequest(HttpRequest request, ApiConfig config){
+  private void makeAPIRequest(HttpRequest request, ApiConfig config) throws UnirestException{
 
       long startTime, endTime, runTime;
 
@@ -41,7 +42,7 @@ public abstract class Parser {
       } catch (UnirestException e) {
           LOGGER.debug("Processing error: " + e.toString());
           endTime = System.currentTimeMillis();
-          this.response = null;
+          throw e;
       }
       runTime = endTime - startTime;
       LOGGER.debug(this.response.toString());

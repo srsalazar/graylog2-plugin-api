@@ -2,6 +2,8 @@ package org.graylog2.plugin.api.transport.services;
 
 import com.mashape.unirest.http.Unirest;
 import com.ning.http.client.*;
+
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
 import org.apache.commons.lang3.StringUtils;
@@ -107,5 +109,5 @@ public abstract class Service {
         return request;
     }
 
-    public abstract HttpRequest customizeHttpRequest(ApiConfig config);
+    public abstract HttpRequest customizeHttpRequest(ApiConfig config) throws UnsupportedEncodingException;
 }

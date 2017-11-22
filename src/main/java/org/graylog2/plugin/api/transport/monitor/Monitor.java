@@ -1,12 +1,15 @@
 package org.graylog2.plugin.api.transport.monitor;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 
 import org.graylog2.plugin.api.transport.parsers.bitium.BitiumParser;
 import org.graylog2.plugin.api.transport.parsers.duo.DuoParser;
 import org.graylog2.plugin.api.transport.services.duo.DuoApi;
+import org.graylog2.plugin.inputs.MisfireException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +48,7 @@ public class Monitor {
                       HttpRequest request = service.customizeHttpRequest(this.config);
                       parser = new BitiumParser(request, this.config);
                       parser.parse(this.messageInput);
-                  } catch (MalformedURLException e) {
+                  } catch (MalformedURLException | UnirestException | UnsupportedEncodingException e) {
                       LOGGER.info("Error generating input" + e);
                   }
                   break;
@@ -56,7 +59,7 @@ public class Monitor {
                       HttpRequest request = service.customizeHttpRequest(this.config);
                       parser = new DuoParser(request, this.config);
                       parser.parse(this.messageInput);
-                  } catch (MalformedURLException e) {
+                  } catch (MalformedURLException | UnirestException | UnsupportedEncodingException e) {
                       LOGGER.info("Error generating input" + e);
                   }
                   break;

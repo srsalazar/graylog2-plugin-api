@@ -9,6 +9,7 @@ import org.joda.time.*;
 import org.graylog2.plugin.api.transport.services.Service;
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
@@ -20,7 +21,7 @@ public class BitiumApi extends Service {
     }
 
     @Override
-    public HttpRequest customizeHttpRequest(ApiConfig config) {
+    public HttpRequest customizeHttpRequest(ApiConfig config)  {
 
         //Authorization
         DateTime dt = new DateTime();
