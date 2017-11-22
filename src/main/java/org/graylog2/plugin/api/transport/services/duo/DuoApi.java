@@ -32,7 +32,7 @@ public class DuoApi extends Service {
 
     // Customize request builder for Bitium
     @Override
-    public HttpRequest customizeHttpRequest(ApiConfig config){
+    public HttpRequest customizeHttpRequest(ApiConfig config) throws UnsupportedEncodingException {
 
         try {
             //Adding time filter
@@ -53,7 +53,7 @@ public class DuoApi extends Service {
             return this.request;
         } catch (UnsupportedEncodingException e){
             LOGGER.debug("Error processing DUO request: " + e.toString());
-            return null;
+            throw e;
         }
     }
 
