@@ -31,15 +31,33 @@ public class UIConfig{
     httpMethods.put(METHOD_PUT, METHOD_PUT);
     cr.addField(new DropdownField(CK_CONFIG_METHOD,
             "HTTP Method",
-            "GET",
+            METHOD_GET,
             httpMethods,
             "HTTP Method (i.e. GET, POST)",
+            ConfigurationField.Optional.NOT_OPTIONAL));
+
+    Map<String, String> supportedApis = new HashMap<>();
+    supportedApis.put(BITIUM, BITIUM);
+    supportedApis.put(DUO, DUO);
+    cr.addField(new DropdownField(CK_CONFIG_API,
+            "Supported APIs",
+            BITIUM,
+            supportedApis,
+            "APIs currently supported by OT API Plugin",
             ConfigurationField.Optional.NOT_OPTIONAL));
 
     cr.addField(new TextField(CK_CONFIG_AUTHORIZATION_HEADERS,
               "Authorization API Headers",
               "",
               "Comma separated authorization headers to send. i.e: Authorization: token {token}, X-Device-Id: {unique_id} ",
+            ConfigurationField.Optional.OPTIONAL,
+            TextField.Attribute.IS_PASSWORD));
+
+    cr.addField(new TextField(CK_CONFIG_SECRETS,
+            "API Secrets",
+            "",
+            "Comma separated set of key value pairs used to generate request. i.e: secret: abc, token: def ",
+            ConfigurationField.Optional.OPTIONAL,
             TextField.Attribute.IS_PASSWORD));
 
     cr.addField(new TextField(CK_CONFIG_HEADERS_TO_SEND,

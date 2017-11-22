@@ -5,6 +5,8 @@ import java.net.MalformedURLException;
 import com.mashape.unirest.request.HttpRequest;
 
 import org.graylog2.plugin.api.transport.parsers.bitium.BitiumParser;
+import org.graylog2.plugin.api.transport.parsers.duo.DuoParser;
+import org.graylog2.plugin.api.transport.services.duo.DuoApi;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.graylog2.plugin.inputs.MessageInput;
 
 // API Plugin
+import static org.graylog2.plugin.api.transport.StaticVars.*;
 import org.graylog2.plugin.api.transport.services.bitium.BitiumApi;
 import org.graylog2.plugin.api.transport.services.Service;
 import org.graylog2.plugin.api.transport.parsers.Parser;
@@ -31,20 +34,32 @@ public class Monitor {
           this.messageInput = messageInput;
       }
 
-
       @Override
       public void run() {
-
           Service service;
           Parser parser;
-          //TODO: Add switch for API type
-          try {
-              service = new BitiumApi(config);
-              HttpRequest request = service.customizeHttpRequest(config);
-              parser = new BitiumParser(request, this.config);
-              parser.parse(this.messageInput);
-          } catch (MalformedURLException e){
-              LOGGER.info("Error generating input" + e);
+          switch (this.config.getApiType()) {
+              case BITIUM:
+                  try {
+                      service = new BitiumApi(this.config);
+                      HttpRequest request = service.customizeHttpRequest(this.config);
+                      parser = new BitiumParser(request, this.config);
+                      parser.parse(this.messageInput);
+                  } catch (MalformedURLException e) {
+                      LOGGER.info("Error generating input" + e);
+                  }
+                  break;
+
+              case DUO:
+                  try {
+                      service = new DuoApi(this.config);
+                      HttpRequest request = service.customizeHttpRequest(this.config);
+                      parser = new DuoParser(request, this.config);
+                      parser.parse(this.messageInput);
+                  } catch (MalformedURLException e) {
+                      LOGGER.info("Error generating input" + e);
+                  }
+                  break;
           }
       }
   }

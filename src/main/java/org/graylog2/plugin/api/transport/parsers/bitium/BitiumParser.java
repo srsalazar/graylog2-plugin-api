@@ -4,7 +4,7 @@ import com.mashape.unirest.request.HttpRequest;
 import com.google.common.collect.Maps;
 import java.util.Map;
 
-import org.graylog2.plugin.api.transport.StaticVars;
+import static org.graylog2.plugin.api.transport.StaticVars.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -17,10 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-public class BitiumParser extends Parser{
+public class    BitiumParser extends Parser{
     private static final Logger LOGGER = LoggerFactory.getLogger(BitiumParser.class.getName());
     public BitiumParser(HttpRequest request, ApiConfig config){
-        super(request, config, StaticVars.BITIUM);
+        super(request, config, BITIUM);
     }
 
     @Override

@@ -38,4 +38,6 @@ public class StaticVars {
   public static final String CK_CONFIG_HTTP_PROXY = "configHttpProxy";
   public static final String CK_CONFIG_AUTHORIZATION_HEADERS = "configAuthHeaders";
   public static final String CK_CONFIG_REQUEST_PARAMS = "configRequestParams";
+  public static final String CK_CONFIG_SECRETS = "configRequestSecrets";
+  public static final String CK_CONFIG_API = "configApi";
 }

@@ -5,7 +5,7 @@ import com.google.common.collect.Maps;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.JsonNode;
+    import com.mashape.unirest.http.JsonNode;
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 import org.graylog2.plugin.inputs.MessageInput;
 import org.graylog2.plugin.journal.RawMessage;
@@ -55,7 +55,7 @@ public abstract class Parser {
     this.baseEventData.put("_label", config.getLabel());
 
     if (this.response != null) {
-        this.baseEventData.put("host", host);
+        this.baseEventData.put("host", config.getHost());
         this.baseEventData.put("_api_status", this.response.getStatus());
         this.baseEventData.put("_api_statusLine", this.response.getStatusText());
       if (config.getResponseHeadersToRecord() != null) {
@@ -64,7 +64,7 @@ public abstract class Parser {
         }
       }
     } else {
-      LOGGER.debug("Failed to retrieve service data " + config.getUrl());
+      LOGGER.debug("Failed to retrieve service data: " + config.getUrl());
     }
   }
 
