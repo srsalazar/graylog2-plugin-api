@@ -13,16 +13,16 @@ import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class BitiumApi extends Service {
-  private static final Logger LOGGER = LoggerFactory.getLogger(BitiumApi.class.getName());
+    private static final Logger LOGGER = LoggerFactory.getLogger(BitiumApi.class.getName());
 
-  public BitiumApi(ApiConfig config) throws MalformedURLException {
-    super(config);
-  }
+    public BitiumApi(ApiConfig config) throws MalformedURLException {
+        super(config);
+    }
 
     @Override
     public HttpRequest customizeHttpRequest(ApiConfig config) {
 
-        //Adding time filter
+        //Authorization
         DateTime dt = new DateTime();
         long executionIntervalMs = TimeUnit.MILLISECONDS.convert(config.getExecutionInterval(), config.getIntervalUnit());
         LOGGER.debug("Setting execution interval:" + executionIntervalMs);

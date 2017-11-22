@@ -1,12 +1,20 @@
 package org.graylog2.plugin.api.transport.configuration;
 
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.commons.lang3.StringUtils;
 import java.util.Arrays;
 
+import org.graylog2.plugin.api.transport.parsers.bitium.BitiumParser;
 import org.graylog2.plugin.configuration.Configuration;
+import org.graylog2.plugin.inputs.MisfireException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.graylog2.plugin.api.transport.StaticVars.*;
 
@@ -14,19 +22,33 @@ import static org.graylog2.plugin.api.transport.StaticVars.*;
  * Created on 17/6/15.
  */
 public class ApiConfig {
-    private String url,label,type,method,requestBody;
-    private ArrayList<String> requestHeaders;
-    private ArrayList<String> authorizationHeaders;
-    private ArrayList<String> requestParams;
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApiConfig.class.getName());
+
+    private String url;
+    private String host;
+    private String uri;
+    private String label;
+    private String type;
+    private String method;
+    private String requestBody;
+    private String apiType;
+    private Map<String, String>  requestHeaders;
+    private Map<String, String>  authorizationHeaders;
+    private Map<String, String>  applicationSecrets;
+    private Map<String, String> requestParams;
     private int timeout, executionInterval;
     private String[] responseHeadersToRecord;
     private boolean logResponseBody;
     private TimeUnit intervalUnit,timeoutUnit;
 
-    public ApiConfig(Configuration configuration){
+
+    public ApiConfig(Configuration configuration) throws MisfireException {
+
       this.setUrl(configuration.getString(CK_CONFIG_URL));
+      this.setUrlDetails(configuration.getString(CK_CONFIG_URL));
       this.setLabel(configuration.getString(CK_CONFIG_LABEL));
       this.setMethod(configuration.getString(CK_CONFIG_METHOD));
+      this.setApiType(configuration.getString(CK_CONFIG_API));
 
       String proxyUri = configuration.getString(CK_CONFIG_HTTP_PROXY);
       if (proxyUri != null && !proxyUri.isEmpty()) {
@@ -37,6 +59,16 @@ public class ApiConfig {
       if (StringUtils.isNotEmpty(authHeaders)) {
           this.setAuthorizationHeaders(
                   new ArrayList(Arrays.asList(authHeaders.split(","))));
+      }
+
+      String appSecrets = configuration.getString(CK_CONFIG_SECRETS);
+      if (this.getApiType() == DUO && StringUtils.isEmpty(appSecrets)){
+          LOGGER.info("Duo API missing request secrets");
+          throw new MisfireException("Duo API missing requests secrets");
+      }
+      if (StringUtils.isNotEmpty(appSecrets)) {
+          this.setApplicationSecrets(
+                  new ArrayList(Arrays.asList(appSecrets.split(","))));
       }
 
       String requestHeaders = configuration.getString(CK_CONFIG_HEADERS_TO_SEND);
@@ -116,11 +148,17 @@ public class ApiConfig {
     }
 
     // Request Headers
-    public ArrayList<String> getRequestHeaders() {
+    public Map<String,String> getRequestHeaders() {
+
         return requestHeaders;
     }
     public void setRequestHeaders(ArrayList<String> requestHeadersToSend) {
-        this.requestHeaders = requestHeadersToSend;
+
+        this.requestHeaders = new HashMap<String,String>();
+        for (String headers : requestHeadersToSend) {
+            String tokens[] = headers.split(":");
+            this.requestHeaders.put(tokens[0].trim(), tokens[1].trim());
+        }
     }
 
     // Request Timeout
@@ -172,19 +210,60 @@ public class ApiConfig {
     }
 
     // API authorization headers
-    public ArrayList<String> getAuthorizationHeaders() {
+    public Map<String,String> getAuthorizationHeaders() {
+
         return authorizationHeaders;
     }
-    public void setAuthorizationHeaders(ArrayList<String> authorizationHeaders) {
-        this.authorizationHeaders = authorizationHeaders;
+    public void setAuthorizationHeaders(ArrayList<String> authHeaders) {
+
+        this.authorizationHeaders = new HashMap<String,String>();
+        for (String headers : authHeaders) {
+            String tokens[] = headers.split(":");
+            this.authorizationHeaders.put(tokens[0].trim(), tokens[1].trim());
+        }
     }
 
     // Request Params
-    public ArrayList<String> getRequestParams() {
+    public Map<String, String> getRequestParams() {
         return requestParams;
     }
-    public void setRequestParams(ArrayList<String> requestParams) {
-        this.requestParams = requestParams;
+    public void setRequestParams(ArrayList<String> requestParameters) {
+        this.requestParams = new HashMap<String,String>();
+        for (String params : requestParameters) {
+            String tokens[] = params.split("=");
+            this.requestParams.put(tokens[0].trim(), tokens[1].trim());
+        }
     }
+
+    // Application Secrets
+    public Map<String,String> getApplicationSecrets() {
+        return applicationSecrets;
+    }
+    public void setApplicationSecrets(ArrayList<String> appSecrets) {
+        this.applicationSecrets = new HashMap<String,String>();
+        for (String secrets : appSecrets) {
+            String tokens[] = secrets.split(":");
+            this.applicationSecrets.put(tokens[0].trim(), tokens[1].trim());
+        }
+    }
+
+    // API selected
+    public String getApiType() { return apiType; }
+    public void setApiType(String apiType) { this.apiType = apiType; }
+
+    // URL Processing
+    public String getHost() { return this.host; }
+    public String getUri() { return uri; }
+    public void setUrlDetails(String urlString) throws MisfireException {
+        try {
+            URL url = new URL(urlString);
+            this.host = url.getHost();
+            this.uri = url.getPath();
+        } catch (MalformedURLException e){
+            throw new MisfireException(e);
+        }
+    }
+
+
 
 }

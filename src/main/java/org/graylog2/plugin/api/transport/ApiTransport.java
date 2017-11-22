@@ -6,6 +6,7 @@ import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.concurrent.*;
 
 
