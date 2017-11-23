@@ -5,18 +5,15 @@ import com.google.common.collect.Maps;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import com.mashape.unirest.request.HttpRequest;
 import com.mashape.unirest.http.HttpResponse;
-    import com.mashape.unirest.http.JsonNode;
+import com.mashape.unirest.http.JsonNode;
 import org.graylog2.plugin.api.transport.configuration.ApiConfig;
 import org.graylog2.plugin.inputs.MessageInput;
-import org.graylog2.plugin.inputs.MisfireException;
 import org.graylog2.plugin.journal.RawMessage;
-import org.json.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 public abstract class Parser {
@@ -77,7 +74,7 @@ public abstract class Parser {
         mapper.writeValue(byteStream, eventData);
         messageInput.processRawMessage(new RawMessage(byteStream.toByteArray()));
         byteStream.close();
-    } catch (IOException e) {
+    } catch (IOException  e) {
       LOGGER.error("Exception while executing request for URL", e);
     }
   }
