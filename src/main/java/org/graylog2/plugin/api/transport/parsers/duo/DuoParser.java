@@ -44,15 +44,6 @@ public class DuoParser extends Parser{
 
                         //Copy base into eventData
                         Map<String, Object> eventData = Maps.newHashMap(this.baseEventData);
-                        eventData.put("_username", jsonobject.getString("username"));
-                        eventData.put("_device", jsonobject.getString("device"));
-                        eventData.put("_factor", jsonobject.getString("factor"));
-                        eventData.put("_integration", jsonobject.getString("integration"));
-                        eventData.put("_reason", jsonobject.getString("reason"));
-                        eventData.put("_result", jsonobject.getString("result"));
-                        eventData.put("_location", jsonobject.getJSONObject("location").toString());
-                        eventData.put("_new_enrollment", jsonobject.getBoolean("new_enrollment"));
-                        eventData.put("_timestamp", jsonobject.getLong("timestamp"));
                         eventData.put("short_message", jsonobject.toString());
                         publishToGraylog(eventData, messageInput);
                     }
